@@ -16,41 +16,36 @@ class User
         return mysqli_fetch_all($resultu, MYSQLI_ASSOC);
     }
 
-    public function update($id, array $data): bool
+    public function update($id, array $data)
     {
-        $cols = ['name', 'email', 'phone', 'role_id', 'job_id'];
         $conn = $this->getConnection();
+
         $id = mysqli_real_escape_string($conn, $id);
         $sqlAr = [];
 
-        foreach ($cols as $col) {
-            if (isset($data[$col])) {
-                $value = mysqli_real_escape_string($conn, $data[$col]);
-                $sqlAr[] = "$col = '$value'";
-            }
+        foreach ($data as $key => $value) {
+            $value = mysqli_real_escape_string($conn, $value);
+            $sqlAr[] = "$key = '$value'";
         }
+
         $sql = "UPDATE {$this->table} SET " . implode(', ', $sqlAr) . " WHERE id = '$id'";
         // Execute query
         if (mysqli_query($conn, $sql)) {
+            header('Location: index.php');
             return true;
         }
-
         return false;
     }
 
     public function add(array $data)
     {
         $conn = $this->getConnection();
-//
-        $standard = ['name', 'email', 'phone', 'role_id', 'job_id'];
         $columns = [];
         $values = [];
-
-        foreach ($standard as $field) {
-            if (isset($data[$field])) {
-                $columns[] = $field;
-                $values[] = "'" . mysqli_real_escape_string($conn, $data[$field]) . "'";
-            }
+        
+        foreach ($data as $key => $value) {
+            $columns[] = $key;
+            $values[] = "'" . mysqli_real_escape_string($conn, $value) . "'";
         }
         $columnsStr = implode(', ', $columns);
         $valuesStr = implode(', ', $values);
