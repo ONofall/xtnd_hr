@@ -1,23 +1,20 @@
 <?php
 global $conn;
-include('connection.php');
-
-$sqlu = "SELECT name FROM users ";
-$resultu = mysqli_query($conn, $sqlu);
-$users = mysqli_fetch_all($resultu, MYSQLI_ASSOC);
-
-if (isset($_POST['submit'])) {
-
-    $from = mysqli_escape_string($conn, $_POST['from']);
-    $to = mysqli_escape_string($conn, $_POST['to']);
-    $user_id = mysqli_escape_string($conn, $_POST['user_id']);
+include('Classes/User.php');
+include('Classes/Vacation.php');
 
 
-    $sql = "INSERT INTO `vacation` ( `from`, `to`, `user_id`) VALUES (= '$from', '$to', '$user_id');";
+$user = new User($conn);
+$users = $user->read($conn);
+$vacation = new vacation($conn);
 
-    header('location:table_vacations.php');
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+    $from = $_POST['from'];
+    $to = $_POST['to'];
+    $user_id = $_POST['user_id'];
+
+    $vacation->addVacation($from, $to, $user_id);
 }
-
 ?>
 
 <!DOCTYPE html>

@@ -1,57 +1,34 @@
 <?php
 global $conn;
-include("connection.php");
-$sqlr = "SELECT * FROM role ";
-$resultr = mysqli_query($conn, $sqlr);
-$roles = mysqli_fetch_all($resultr, MYSQLI_ASSOC);
+include("Classes/User.php");
+include("Classes/Job.php");
+include("Classes/Role.php");
 
-$sqlj = "SELECT * FROM jobs ";
-$resultj = mysqli_query($conn, $sqlj);
-$joob = mysqli_fetch_all($resultj, MYSQLI_ASSOC);
+$editUser = new User($conn);
+$roles= new Roles($conn);
+$Jobs = new Jobs($conn);
+$roles = $roles->getRoles();
+$jobs = $Jobs->getJobs();
 
-if (isset($_POST['submit'])) {
-    // Update form data
-    $id = mysqli_real_escape_string($conn, $_POST['id']);
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-    $role_id = mysqli_real_escape_string($conn, $_POST['role_id']);
-    $job_id = mysqli_real_escape_string($conn, $_POST['job_id']);
-
-    // Update query
-    $sql = "UPDATE users
-            SET name = '$name',
-                email = '$email',
-                phone = '$phone',
-                role_id = '$role_id',
-                job_id = '$job_id'
-            WHERE id = '$id'";
-
-    // Execute query
-    if (mysqli_query($conn, $sql)) {
-        header('location:index.php');
-    } else {
-        echo "Error updating record: " . mysqli_error($conn);
-    }
-}
-
-// Fetch user data
 if (isset($_GET['id'])) {
-    $id = mysqli_real_escape_string($conn, $_GET['id']);
-    $sql = "SELECT users.*, role.name as role_name, jobs.name as job_name, vacation.from, vacation.to
-            FROM users
-            INNER JOIN jobs ON users.job_id = jobs.id
-            INNER JOIN role ON users.role_id = role.id
-            INNER JOIN vacation ON vacation.user_id = users.id
-            WHERE users.id = '$id'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    if (!$row) {
-        echo "No user found with ID: $id";
-        exit;
-    }
+    $id = $_GET['id'];
+    $row = $editUser->getUserById($id);
 } else {
     header('location:index.php');
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
+    $data = [
+        'name' => $_POST['name'],
+        'email' => $_POST['email'],
+        'phone' => $_POST['phone'],
+        'role_id' => $_POST['role_id'],
+        'job_id' => $_POST['job_id']
+    ];
+
+    $editUser->update($id, $data);
 }
 
 
@@ -77,7 +54,7 @@ if (isset($_GET['id'])) {
         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
         <div class="d-flex align-items-center gap-4">
             <label class="text-white" for="name">Name:</label>
-            <input class="form-control" type="text" name="name" value="<?php echo $row['name']; ?>"><br><br>
+            <input class="form-control" type="text" name="name" value="<?php echo $row['name'];  ?>"><br><br>
         </div>
         <div class="d-flex align-items-center gap-4">
             <label class="text-white" for="email">Email:</label>
@@ -97,23 +74,27 @@ if (isset($_GET['id'])) {
         <label class="text-white" for="role_id">Role:</label>
         <select name="role_id" class="test">
             <?php foreach ($roles as $rolee) { ?>
-                <option <?php if ($row['role_id'] == $rolee['id']) { echo 'selected'; } ?>
+                <option <?php if ($row['role_id'] == $rolee['id']) {
+                    echo 'selected';
+                } ?>
                         value="<?php echo $rolee['id'] ?>"><?php echo $rolee['name'] ?></option>
             <?php } ?>
         </select>
 
         <label class="text-white" for="job_id">Title:</label>
         <select name="job_id" class="test">
-            <?php foreach ($joob as $jooob) { ?>
-                <option <?php if ($row['job_id'] == $jooob['id']) { echo 'selected'; } ?>
+            <?php foreach ($jobs as $jooob) { ?>
+                <option <?php if ($row['job_id'] == $jooob['id']) {
+                    echo 'selected';
+                } ?>
                         value="<?php echo $jooob['id'] ?>"><?php echo $jooob['name'] ?></option>
             <?php } ?>
         </select>
 
-
         <div class="d-flex align-items-center justify-content-center pt-3">
-            <input type="submit" name="submit" value="Update">
+            <input type="submit" name="submit" value="Update" class="btn btn-primary">
         </div>
+
     </form>
 </div>
 </body>
