@@ -8,7 +8,7 @@ $getdata = $user->read_user_job_role();
 if (isset($_POST['delete'])) {
     $delete_id = $_POST['delete_id'];
 
-    $delete = $user->Delete($delete_id);
+    $delete = $user->delete($delete_id);
 }
 
 ?>

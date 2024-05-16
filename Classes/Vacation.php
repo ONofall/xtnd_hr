@@ -7,6 +7,7 @@ class vacation
 {
     use DatabaseConnection;
 
+    protected $table = 'vacation';
 
     public function addVacation($from, $to, $user_id)
     {
@@ -16,7 +17,7 @@ class vacation
         $user_id = mysqli_escape_string($conn, $_POST['user_id']);
 
 
-        $sql = "INSERT INTO `vacation` ( `from`, `to`,`status`, `user_id`) VALUES ('$from', '$to','Pending', '$user_id');";
+        $sql = "INSERT INTO {$this->table} ( `from`, `to`,`status`, `user_id`) VALUES ('$from', '$to','Pending', '$user_id');";
 
         if (mysqli_query($conn, $sql)) {
             header('location:table_vacations.php');
@@ -31,7 +32,7 @@ class vacation
         $update_id = mysqli_real_escape_string($conn, $_POST['update_id']);
         $new_status = ($_POST['update'] == 'Accept') ? 'Accept' : 'Reject';
 
-        $sql_status = "UPDATE vacation SET status = '$new_status' WHERE id = $update_id";
+        $sql_status = "UPDATE {$this->table} SET status = '$new_status' WHERE id = $update_id";
 
         if (mysqli_query($conn, $sql_status)){
             header('location: table_vacations.php');
