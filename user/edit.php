@@ -1,12 +1,12 @@
 <?php
-global $conn;
-include("Classes/User.php");
-include("Classes/Job.php");
-include("Classes/Role.php");
+require_once('../autoloader.php');
+include 'update.php';
 
-$editUser = new User($conn);
-$roles= new Roles($conn);
-$Jobs = new Jobs($conn);
+
+
+$editUser = new User();
+$roles= new Roles();
+$Jobs = new Jobs();
 $roles = $roles->getRoles();
 $jobs = $Jobs->getJobs();
 
@@ -18,18 +18,6 @@ if (isset($_GET['id'])) {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'];
-    $data = [
-        'name' => $_POST['name'],
-        'email' => $_POST['email'],
-        'phone' => $_POST['phone'],
-        'role_id' => $_POST['role_id'],
-        'job_id' => $_POST['job_id']
-    ];
-
-    $editUser->update($id, $data);
-}
 
 
 ?>

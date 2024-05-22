@@ -1,20 +1,12 @@
 <?php
-global $conn;
-include('Classes/User.php');
-include('Classes/Vacation.php');
+require_once('../autoloader.php');
+include 'store.php';
+
+$user = new User();
+$users = $user->read();
+$vacation = new vacation();
 
 
-$user = new User($conn);
-$users = $user->read($conn);
-$vacation = new vacation($conn);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-    $from = $_POST['from'];
-    $to = $_POST['to'];
-    $user_id = $_POST['user_id'];
-
-    $vacation->addVacation($from, $to, $user_id);
-}
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 <body>
 <div class="container-xl py-5 bg-secondary">
     <div class="py-4 d-flex align-items-center justify-content-center gap-4">
-        <button class="btn btn-dark py-3 px-5"><a class="text-decoration-none text-white" href="index.php" >Home</a></button>
+        <button class="btn btn-dark py-3 px-5"><a class="text-decoration-none text-white" href="../user/index.php">Home</a>
+        </button>
 
-    </div>    <div class="d-flex align-items-center justify-content-center pt-3">
+    </div>
+    <div class="d-flex align-items-center justify-content-center pt-3">
         <h2 class="text-white">Add Vacation</h2>
     </div>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
@@ -51,7 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                 <?php } ?>
             </select>
         </div>
-        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        <div class="d-flex justify-content-center py-4">
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
 </div>
 </body>

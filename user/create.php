@@ -1,25 +1,13 @@
 <?php
-global $conn;
-include("Classes/User.php");
-include("Classes/Job.php");
-include("Classes/Role.php");
+require_once('../autoloader.php');
+include 'store.php';
 
-$user = new User($conn);
-$roles= new Roles($conn);
-$Jobs = new Jobs($conn);
+$user = new User();
+$roles= new Roles();
+$Jobs = new Jobs();
 $roles = $roles->getRoles();
 $jobs = $Jobs->getJobs();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = [
-        'name' => $_POST['name'],
-        'email' => $_POST['email'],
-        'phone' => $_POST['phone'],
-        'role_id' => $_POST['role_id'],
-        'job_id' => $_POST['job_id']
-    ];
-    $user->add($data);
-}
 
 
 ?>

@@ -1,17 +1,13 @@
 <?php
-include('Classes/Vacation.php');
+require_once('../autoloader.php');
+include 'update_status.php';
 
-global $conn;
 
-$updateStatus = new vacation($conn);
-$inn = new user_vacation($conn);
+$updateStatus = new vacation();
+$inn = new user_vacation();
 $users = $inn->vacation_inner();
-if (isset($_POST['update'])) {
-    $update_id = $_POST['update_id'];
-    $new_status = ($_POST['update'] == 'Accept') ? 'Accept' : 'Reject';
 
-    $update = $updateStatus->updateStatus($update_id, $new_status);
-}
+
 
 
 ?>
@@ -30,8 +26,8 @@ if (isset($_POST['update'])) {
 <body>
 <div class="container-xl py-5">
     <div class="py-4 d-flex align-items-center justify-content-center gap-4">
-        <button class="btn btn-dark py-3 px-5"><a class="text-decoration-none text-white px-2" href="index.php">Home</a></button>
-        <button class="btn btn-dark py-3 px-3"><a class="text-decoration-none text-white" href="vacations.php">Add Vacations</a></button>
+        <button class="btn btn-dark py-3 px-5"><a class="text-decoration-none text-white px-2" href="../user/index.php">Home</a></button>
+        <button class="btn btn-dark py-3 px-3"><a class="text-decoration-none text-white" href="create.php">Add Vacations</a></button>
     </div>
     <table class="table table-dark table-hover">
         <tr>

@@ -1,5 +1,7 @@
 <?php
-include_once ('Connection.php');
+
+
+
 class User
 {
     use DatabaseConnection;
@@ -62,7 +64,7 @@ class User
         $sql_user = "DELETE FROM {$this->table} WHERE id = $delete_id";
 
         if (mysqli_query($conn, $sql_user)) {
-            header('location:index.php');
+            header('location:/home/nofal/PhpstormProjects/myshop/user/index.php');
             return true;
         } else {
             return false;
@@ -98,19 +100,19 @@ class User
                 INNER JOIN role ON {$this->table}.role_id = role.id where 1=1 ";
 
         if (!empty($conditions['name'])) {
-            $sql .= " and users.name LIKE '%" .  $conditions['name'] . "%'";
+            $sql .= " and users.name LIKE '%" . $conditions['name'] . "%'";
         }
         if (!empty($conditions['email'])) {
-            $sql .= " and users.email LIKE '%" .  $conditions['email'] . "%'";
+            $sql .= " and users.email LIKE '%" . $conditions['email'] . "%'";
         }
         if (!empty($conditions['phone'])) {
-            $sql .= " and users.phone LIKE '%" .  $conditions['phone'] . "%'";
+            $sql .= " and users.phone LIKE '%" . $conditions['phone'] . "%'";
         }
         if (!empty($conditions['role_id'])) {
-            $sql .= " and users.role_id = " .  $conditions['role_id'];
+            $sql .= " and users.role_id = " . $conditions['role_id'];
         }
         if (!empty($conditions['job_id'])) {
-            $sql .= " and users.job_id = " .  $conditions['job_id'];
+            $sql .= " and users.job_id = " . $conditions['job_id'];
         }
         $sql .= " ORDER BY {$this->table}.id ASC  LIMIT $offset, $records_per_page";
 
@@ -125,8 +127,15 @@ class User
 
 
 
-
-
+//    public function usersCount()
+//    {
+//        $conn = $this->getConnection();
+//        $sql = "SELECT COUNT(id) FROM {$this->table}";
+//        $result = mysqli_query($conn, $sql);
+//        $rows = mysqli_fetch_row($result);
+//        return $rows[0];
+//    }
 
 }
+
 ?>

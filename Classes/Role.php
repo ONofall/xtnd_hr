@@ -1,8 +1,10 @@
 <?php
-include_once('Connection.php');
+
+
+
 class Roles
 {
-   use DatabaseConnection;
+    use DatabaseConnection;
 
     public function getRoles()
     {

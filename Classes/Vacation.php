@@ -1,7 +1,4 @@
 <?php
-include_once('Connection.php');
-
-
 
 class vacation
 {
@@ -20,7 +17,8 @@ class vacation
         $sql = "INSERT INTO {$this->table} ( `from`, `to`,`status`, `user_id`) VALUES ('$from', '$to','Pending', '$user_id');";
 
         if (mysqli_query($conn, $sql)) {
-            header('location:table_vacations.php');
+
+            header('location: index.php');
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
@@ -34,8 +32,8 @@ class vacation
 
         $sql_status = "UPDATE {$this->table} SET status = '$new_status' WHERE id = $update_id";
 
-        if (mysqli_query($conn, $sql_status)){
-            header('location: table_vacations.php');
+        if (mysqli_query($conn, $sql_status)) {
+            header('location: index.php');
         }
 
     }
