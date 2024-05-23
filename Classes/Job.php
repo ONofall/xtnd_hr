@@ -1,6 +1,6 @@
 <?php
 
-class Jobs extends BaseModel
+class Job extends BaseModel
 {
     protected $table = 'jobs';
 

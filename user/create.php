@@ -3,8 +3,8 @@ require_once('../autoloader.php');
 include 'store.php';
 
 $user = new User();
-$roles= new Roles();
-$Jobs = new Jobs();
+$roles= new Role();
+$Jobs = new Job();
 $roles = $roles->all();
 $jobs = $Jobs->all();
 ?>

@@ -9,10 +9,10 @@ class User extends BaseModel
         $conn = $this->getConnection();
         $id = mysqli_real_escape_string($conn, $id);
 
-        $sql = "SELECT {$this->table}.*, role.name as role_name, jobs.name as job_name
+        $sql = "SELECT {$this->table}.*, roles.name as role_name, jobs.name as job_name
                 FROM {$this->table}
                 INNER JOIN jobs ON {$this->table}.job_id = jobs.id
-                INNER JOIN role ON {$this->table}.role_id = role.id
+                INNER JOIN roles ON {$this->table}.role_id = roles.id
                 WHERE {$this->table}.id = '$id'";
 
         $result = mysqli_query($conn, $sql);
@@ -24,10 +24,10 @@ class User extends BaseModel
         $offset = ($page - 1) * $records_per_page;
 
         $conn = $this->getConnection();
-        $sql = "SELECT SQL_CALC_FOUND_ROWS {$this->table}.*, role.name as role_name, jobs.name as job_name 
+        $sql = "SELECT SQL_CALC_FOUND_ROWS {$this->table}.*, roles.name as role_name, jobs.name as job_name 
                 FROM {$this->table}
                 INNER JOIN jobs ON {$this->table}.job_id = jobs.id 
-                INNER JOIN role ON {$this->table}.role_id = role.id where 1=1 ";
+                INNER JOIN roles ON {$this->table}.role_id = roles.id where 1=1 ";
 
         if (!empty($conditions['name'])) {
             $sql .= " and users.name LIKE '%" . $conditions['name'] . "%'";

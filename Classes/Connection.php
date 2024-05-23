@@ -9,6 +9,10 @@ trait DatabaseConnection
         $this->conn = new \mysqli('localhost', 'root', 'root', 'xtnd_hr');
     }
 
+    /**
+     *
+     * @return mixed
+     */
     public function getConnection()
     {
         if (!$this->conn) {

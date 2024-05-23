@@ -1,7 +1,7 @@
 <?php
 
-class Roles extends BaseModel
+class Role extends BaseModel
 {
-    protected $table = 'role';
+    protected $table = 'roles';
 
 }

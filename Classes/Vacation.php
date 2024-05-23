@@ -2,7 +2,7 @@
 
 class Vacation extends BaseModel
 {
-    protected $table = 'vacation';
+    protected $table = 'vacations';
 
     public function updateStatus()
     {
@@ -22,7 +22,7 @@ class Vacation extends BaseModel
     public function read()
     {
         $conn = $this->getConnection();
-        $sql = "SELECT users.*, vacation.from, vacation.to, vacation.status , vacation.id AS vacation_id FROM users INNER JOIN vacation ON vacation.user_id = users.id";
+        $sql = "SELECT users.*, vacations.from, vacations.to, vacations.status , vacations.id AS vacation_id FROM users INNER JOIN vacations ON vacations.user_id = users.id";
         $result = mysqli_query($conn, $sql);
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }

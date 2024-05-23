@@ -3,8 +3,8 @@ require_once '../autoloader.php';
 include 'delete.php';
 
 $user = new User();
-$role = new Roles();
-$job = new Jobs();
+$role = new Role();
+$job = new Job();
 $roles = $role->all();
 $jobs = $job->all();
 $records_per_page = 10;
