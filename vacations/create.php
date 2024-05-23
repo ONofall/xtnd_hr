@@ -1,10 +1,29 @@
 <?php
 require_once('../autoloader.php');
-include 'store.php';
 
-$user = new User();
-$users = $user->all();
-$vacation = new Vacation();
+$userModel = new User();
+$users = $userModel->all();
+
+$vacationModel = new Vacation();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+    $from = $_POST['from'];
+    $to = $_POST['to'];
+    $user_id = $_POST['user_id'];
+
+    $vacationData = [
+        'from' => $from,
+        'to' => $to,
+        'status' => 'Pending',
+        'user_id' => $user_id
+    ];
+
+    $vacationModel->insert($vacationData);
+    if ($vacationData){
+        header('location:index.php');
+
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,9 +38,7 @@ $vacation = new Vacation();
 <body>
 <div class="container-xl py-5 bg-secondary">
     <div class="py-4 d-flex align-items-center justify-content-center gap-4">
-        <button class="btn btn-dark py-3 px-5"><a class="text-decoration-none text-white" href="../user/index.php">Home</a>
-        </button>
-
+        <button class="btn btn-dark py-3 px-5"><a class="text-decoration-none text-white" href="../user/index.php">Home</a></button>
     </div>
     <div class="d-flex align-items-center justify-content-center pt-3">
         <h2 class="text-white">Add Vacation</h2>

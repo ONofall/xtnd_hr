@@ -13,5 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     $editUser->update($id, $data);
+    if ($data){
+        header('Location: index.php');
+
+    }
 }
 

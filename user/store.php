@@ -11,4 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'job_id' => $_POST['job_id']
     ];
     $user->insert($data);
+
+    if ($user){
+        header('location:index.php');
+
+    }
 }

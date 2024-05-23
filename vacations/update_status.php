@@ -7,4 +7,8 @@ if (isset($_POST['update'])) {
     $new_status = ($_POST['update'] == 'Accept') ? 'Accept' : 'Reject';
 
     $update = $updateStatus->updateStatus($update_id, $new_status);
+    if ($new_status){
+        header('location: index.php');
+
+    }
 }

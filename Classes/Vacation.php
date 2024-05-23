@@ -1,11 +1,8 @@
 <?php
 
-class Vacation
+class Vacation extends BaseModel
 {
-    use DatabaseConnection;
-
     protected $table = 'vacation';
-
 
     public function updateStatus()
     {
@@ -16,8 +13,9 @@ class Vacation
         $sql_status = "UPDATE {$this->table} SET status = '$new_status' WHERE id = $update_id";
 
         if (mysqli_query($conn, $sql_status)) {
-            header('location: index.php');
+            return true;
         }
+        return false;
 
     }
 
