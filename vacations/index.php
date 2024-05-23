@@ -1,7 +1,7 @@
 <?php
 
 require_once('../autoloader.php');
-include 'update_status.php';
+//include 'update_status.php';
 
 $updateStatus = new Vacation();
 $inn = new Vacation();
@@ -41,15 +41,18 @@ $users = $inn->read();
                 <td><?php echo $user['to'] ?></td>
                 <td><?php echo $user['status'] ?></td>
                 <td class="d-flex justify-content-around">
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                        <input type="hidden" name="update_id" value="<?php echo $user['vacation_id'] ?>">
-                        <input type="submit" name="update" value="Accept" class="btn btn-primary px-3">
+                    <form action="update_status.php" method="POST">
+                        <input type="hidden" name="update_id" value="<?php echo $user['vacation_id']; ?>">
+                        <input type="hidden" name="update" value="Accept">
+                        <input type="submit" class="btn btn-primary px-3" value="Accept">
                     </form>
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                        <input type="hidden" name="update_id" value="<?php echo $user['vacation_id'] ?>">
-                        <input type="submit" name="update" value="Reject" class="btn btn-danger px-3">
+                    <form action="update_status.php" method="POST">
+                        <input type="hidden" name="update_id" value="<?php echo $user['vacation_id']; ?>">
+                        <input type="hidden" name="update" value="Reject">
+                        <input type="submit" class="btn btn-danger px-3" value="Reject">
                     </form>
                 </td>
+
             </tr>
         <?php } ?>
     </table>

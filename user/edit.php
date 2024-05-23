@@ -1,6 +1,5 @@
 <?php
 require_once('../autoloader.php');
-include 'update.php';
 
 $editUser = new User();
 $roles= new Role();
@@ -33,7 +32,7 @@ if (isset($_GET['id'])) {
 
         <h2 class="text-white">Update Data</h2>
     </div>
-    <form action="" method="post"> <!-- Corrected form action -->
+    <form action="update.php" method="post"> <!-- Corrected form action -->
         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
         <div class="d-flex align-items-center gap-4">
             <label class="text-white" for="name">Name:</label>

@@ -1,11 +1,9 @@
 <?php
 require_once('../autoloader.php');
-include 'store.php';
 
-$user = new User();
-$roles= new Role();
+$role= new Role();
 $Jobs = new Job();
-$roles = $roles->all();
+$roles = $role->all();
 $jobs = $Jobs->all();
 ?>
 <!DOCTYPE html>
@@ -24,7 +22,7 @@ $jobs = $Jobs->all();
 
         <h2 class="text-white">Add Data</h2>
     </div>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+    <form action="store.php" method="POST">
         <div class="d-flex align-items-center gap-4">
             <label class="text-white" for="name">Name:</label>
             <input class="form-control" type="text" name="name" value=""

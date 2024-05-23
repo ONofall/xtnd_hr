@@ -1,6 +1,6 @@
 <?php
 require_once '../autoloader.php';
-include 'delete.php';
+//include 'delete.php';
 
 $user = new User();
 $role = new Role();
@@ -105,7 +105,7 @@ $total_pages = ceil($total_records / $records_per_page);
                 <td class="d-flex justify-content-around">
                     <button class="btn btn-secondary"><a class="text-decoration-none text-white px-3"
                                                          href="edit.php?id=<?php echo $user['id'] ?>">Edit</a></button>
-                    <form action="index.php" method="POST">
+                    <form action="delete.php" method="POST">
                         <input type="hidden" name="delete_id" value="<?php echo $user['id'] ?>">
                         <input type="submit" name="delete" value="Delete" class="btn btn-danger px-3">
                     </form>
