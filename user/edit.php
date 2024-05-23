@@ -12,7 +12,6 @@ if (isset($_GET['id'])) {
     $row = $editUser->getUserById($id);
 } else {
     header('location:index.php');
-    exit();
 }
 ?>
 
