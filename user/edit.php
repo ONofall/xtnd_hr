@@ -2,13 +2,11 @@
 require_once('../autoloader.php');
 include 'update.php';
 
-
-
 $editUser = new User();
 $roles= new Roles();
 $Jobs = new Jobs();
-$roles = $roles->getRoles();
-$jobs = $Jobs->getJobs();
+$roles = $roles->all();
+$jobs = $Jobs->all();
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -17,9 +15,6 @@ if (isset($_GET['id'])) {
     header('location:index.php');
     exit();
 }
-
-
-
 ?>
 
 <!DOCTYPE html>

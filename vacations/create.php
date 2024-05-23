@@ -3,10 +3,8 @@ require_once('../autoloader.php');
 include 'store.php';
 
 $user = new User();
-$users = $user->read();
-$vacation = new vacation();
-
-
+$users = $user->all();
+$vacation = new Vacation();
 ?>
 
 <!DOCTYPE html>

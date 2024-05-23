@@ -1,32 +1,19 @@
 <?php
+require_once 'Basemodel.php';
 
-
-
-class User
+class User extends BaseModel
 {
-    use DatabaseConnection;
-
     protected $table = 'users';
-
-    public function read()
-    {
-        $conn = $this->getConnection();
-        $sqlu = "SELECT * FROM {$this->table}";
-        $resultu = mysqli_query($conn, $sqlu);
-        return mysqli_fetch_all($resultu, MYSQLI_ASSOC);
-    }
 
     public function update($id, array $data)
     {
         $conn = $this->getConnection();
         $id = mysqli_real_escape_string($conn, $id);
         $sqlAr = [];
-
         foreach ($data as $key => $value) {
             $value = mysqli_real_escape_string($conn, $value);
             $sqlAr[] = "$key = '$value'";
         }
-
         $sql = "UPDATE {$this->table} SET " . implode(', ', $sqlAr) . " WHERE id = '$id'";
         if (mysqli_query($conn, $sql)) {
             header('Location: index.php');
@@ -35,7 +22,7 @@ class User
         return false;
     }
 
-    public function add(array $data)
+    public function insert(array $data)
     {
         $conn = $this->getConnection();
         $columns = [];
@@ -85,9 +72,6 @@ class User
         $result = mysqli_query($conn, $sql);
         return mysqli_fetch_assoc($result);
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function search($conditions, $page = 1, $records_per_page = 10)
     {
@@ -125,17 +109,5 @@ class User
         return ['data' => $rows, 'total' => $total];
     }
 
-
-
-//    public function usersCount()
-//    {
-//        $conn = $this->getConnection();
-//        $sql = "SELECT COUNT(id) FROM {$this->table}";
-//        $result = mysqli_query($conn, $sql);
-//        $rows = mysqli_fetch_row($result);
-//        return $rows[0];
-//    }
-
 }
-
 ?>

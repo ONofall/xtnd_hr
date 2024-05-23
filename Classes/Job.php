@@ -1,21 +1,10 @@
 <?php
 
+require_once 'Basemodel.php';
 
-
-
-class Jobs
+class Jobs extends BaseModel
 {
-    use DatabaseConnection;
+    protected $table = 'jobs';
 
 
-    public function getJobs()
-    {
-        $conn = $this->getConnection();
-        $sqlj = "SELECT * FROM jobs ";
-        $resultj = mysqli_query($conn, $sqlj);
-        return mysqli_fetch_all($resultj, MYSQLI_ASSOC);
-    }
 }
-
-
-?>

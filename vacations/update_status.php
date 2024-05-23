@@ -1,7 +1,6 @@
 <?php
 
-global $conn;
-$updateStatus = new vacation($conn);
+$updateStatus = new Vacation();
 
 if (isset($_POST['update'])) {
     $update_id = $_POST['update_id'];
@@ -9,8 +8,3 @@ if (isset($_POST['update'])) {
 
     $update = $updateStatus->updateStatus($update_id, $new_status);
 }
-
-
-
-
-?>

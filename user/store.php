@@ -1,10 +1,6 @@
 <?php
-global $conn;
 
-// Action
-
-$user = new User($conn);
-
+$user = new User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = [
@@ -14,6 +10,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'role_id' => $_POST['role_id'],
         'job_id' => $_POST['job_id']
     ];
-    $user->add($data);
+    $user->insert($data);
 }
-// redirect to edit page

@@ -1,28 +1,11 @@
 <?php
 
-class vacation
+class Vacation
 {
     use DatabaseConnection;
 
     protected $table = 'vacation';
 
-    public function addVacation($from, $to, $user_id)
-    {
-        $conn = $this->getConnection();
-        $from = mysqli_escape_string($conn, $_POST['from']);
-        $to = mysqli_escape_string($conn, $_POST['to']);
-        $user_id = mysqli_escape_string($conn, $_POST['user_id']);
-
-
-        $sql = "INSERT INTO {$this->table} ( `from`, `to`,`status`, `user_id`) VALUES ('$from', '$to','Pending', '$user_id');";
-
-        if (mysqli_query($conn, $sql)) {
-
-            header('location: index.php');
-        } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
-    }
 
     public function updateStatus()
     {
@@ -37,13 +20,8 @@ class vacation
         }
 
     }
-}
 
-class user_vacation
-{
-    use DatabaseConnection;
-
-    public function vacation_inner()
+    public function read()
     {
         $conn = $this->getConnection();
         $sql = "SELECT users.*, vacation.from, vacation.to, vacation.status , vacation.id AS vacation_id FROM users INNER JOIN vacation ON vacation.user_id = users.id";
@@ -51,5 +29,3 @@ class user_vacation
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 }
-
-?>

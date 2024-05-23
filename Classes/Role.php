@@ -1,19 +1,9 @@
 <?php
+require_once 'Basemodel.php';
 
-
-
-class Roles
+class Roles extends BaseModel
 {
-    use DatabaseConnection;
+    protected $table = 'role';
 
-    public function getRoles()
-    {
-        $conn = $this->getConnection();
-        $sqlr = "SELECT * FROM role ";
-        $resultr = mysqli_query($conn, $sqlr);
 
-        return mysqli_fetch_all($resultr, MYSQLI_ASSOC);
-    }
 }
-
-?>

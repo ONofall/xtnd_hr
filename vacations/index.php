@@ -1,14 +1,11 @@
 <?php
+
 require_once('../autoloader.php');
 include 'update_status.php';
 
-
-$updateStatus = new vacation();
-$inn = new user_vacation();
-$users = $inn->vacation_inner();
-
-
-
+$updateStatus = new Vacation();
+$inn = new Vacation();
+$users = $inn->read();
 
 ?>
 

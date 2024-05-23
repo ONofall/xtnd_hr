@@ -3,14 +3,12 @@
 require_once '../autoloader.php';
 include 'delete.php';
 
-
 $user = new User();
 $role = new Roles();
 $job = new Jobs();
-$roles = $role->getRoles();
-$jobs = $job->getJobs();
+$roles = $role->all();
+$jobs = $job->all();
 $records_per_page = 10;
-
 
 $search_query_name = isset($_GET['search_name']) ? $_GET['search_name'] : '';
 $search_query_email = isset($_GET['search_email']) ? $_GET['search_email'] : '';
@@ -25,14 +23,12 @@ $search_conditions = [
     'role_id' => $search_query_role,
     'job_id' => $search_query_job,
 ];
+
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $search_results = $user->search($search_conditions, $page, $records_per_page);
 $getdata = $search_results['data'];
-
 $total_records = $search_results['total'];
 $total_pages = ceil($total_records / $records_per_page);
-
-
 ?>
 
 <!doctype html>
@@ -61,11 +57,11 @@ $total_pages = ceil($total_records / $records_per_page);
         <div class="d-flex justify-content-around align-items-center">
             <form action="index.php" method="GET" class="d-flex">
                 <input type="text" name="search_name" class="form-control" placeholder="Search by name"
-                       value="<?php echo htmlspecialchars($search_query_name); ?>" />
+                       value="<?php echo htmlspecialchars($search_query_name); ?>"/>
                 <input type="text" name="search_email" class="form-control ms-2" placeholder="Search by email"
-                       value="<?php echo htmlspecialchars($search_query_email); ?>" />
+                       value="<?php echo htmlspecialchars($search_query_email); ?>"/>
                 <input type="text" name="search_phone" class="form-control ms-2" placeholder="Search by Phone"
-                       value="<?php echo htmlspecialchars($search_query_phone); ?>" />
+                       value="<?php echo htmlspecialchars($search_query_phone); ?>"/>
 
                 <select name="search_role" class="form-control ms-2 bg-secondary">
                     <option value="">Select Role</option>
@@ -124,21 +120,21 @@ $total_pages = ceil($total_records / $records_per_page);
             <?php if ($page > 1) { ?>
                 <li class="page-item">
                     <a class="page-link"
-                       href="?page=<?php echo $page - 1; ?>&search_name=<?php echo ($search_query_name); ?>&search_email=<?php echo urlencode($search_query_email); ?>&search_phone=<?php echo urlencode($search_query_phone); ?>&search_role=<?php echo ($search_query_role); ?>&search_job=<?php echo ($search_query_job); ?>">Previous</a>
+                       href="?page=<?php echo $page - 1; ?>&search_name=<?php echo($search_query_name); ?>&search_email=<?php echo urlencode($search_query_email); ?>&search_phone=<?php echo urlencode($search_query_phone); ?>&search_role=<?php echo($search_query_role); ?>&search_job=<?php echo($search_query_job); ?>">Previous</a>
                 </li>
             <?php } ?>
 
             <?php for ($i = 1; $i <= $total_pages; $i++) { ?>
                 <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
                     <a class="page-link"
-                       href="?page=<?php echo $i; ?>&search_name=<?php echo ($search_query_name); ?>&search_email=<?php echo ($search_query_email); ?>&search_phone=<?php echo ($search_query_phone); ?>&search_role=<?php echo ($search_query_role); ?>&search_job=<?php echo ($search_query_job); ?>"><?php echo $i; ?></a>
+                       href="?page=<?php echo $i; ?>&search_name=<?php echo($search_query_name); ?>&search_email=<?php echo($search_query_email); ?>&search_phone=<?php echo($search_query_phone); ?>&search_role=<?php echo($search_query_role); ?>&search_job=<?php echo($search_query_job); ?>"><?php echo $i; ?></a>
                 </li>
             <?php } ?>
 
             <?php if ($page < $total_pages) { ?>
                 <li class="page-item">
                     <a class="page-link"
-                       href="?page=<?php echo $page + 1; ?>&search_name=<?php echo ($search_query_name); ?>&search_email=<?php echo ($search_query_email); ?>&search_phone=<?php echo ($search_query_phone); ?>&search_role=<?php echo ($search_query_role); ?>&search_job=<?php echo ($search_query_job); ?>">Next</a>
+                       href="?page=<?php echo $page + 1; ?>&search_name=<?php echo($search_query_name); ?>&search_email=<?php echo($search_query_email); ?>&search_phone=<?php echo($search_query_phone); ?>&search_role=<?php echo($search_query_role); ?>&search_job=<?php echo($search_query_job); ?>">Next</a>
                 </li>
             <?php } ?>
         </ul>

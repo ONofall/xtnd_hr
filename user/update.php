@@ -1,11 +1,6 @@
 <?php
-// Action
-global $conn;
 
-
-
-$editUser = new User($conn);
-
+$editUser = new User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
@@ -20,4 +15,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $editUser->update($id, $data);
 }
 
-// redirect to edit page

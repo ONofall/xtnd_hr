@@ -5,11 +5,8 @@ include 'store.php';
 $user = new User();
 $roles= new Roles();
 $Jobs = new Jobs();
-$roles = $roles->getRoles();
-$jobs = $Jobs->getJobs();
-
-
-
+$roles = $roles->all();
+$jobs = $Jobs->all();
 ?>
 <!DOCTYPE html>
 <html lang="en">
