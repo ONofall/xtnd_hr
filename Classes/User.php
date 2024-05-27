@@ -60,4 +60,5 @@ class User extends BaseModel
 
         return ['data' => $rows, 'total' => $total];
     }
+
 }

@@ -35,6 +35,7 @@ abstract class BaseModel
         }
         return false;
     }
+
     public function delete($delete_id) {
         $conn = $this->getConnection();
         $delete_id = mysqli_real_escape_string($conn, $delete_id);

@@ -2,21 +2,21 @@
 
 class Vacation extends BaseModel
 {
-    public function updateStatus(array $data)
+    public function updateStatus($data)
     {
         $conn = $this->getConnection();
-        foreach ($data as $update) {
-            $id = mysqli_real_escape_string($conn, $update['update_id']);
-            $new_status = ($update['update'] == 'Accept') ? 'Accept' : 'Reject';
+        foreach ($data as $id => $new_status) {
+            $new_status = mysqli_real_escape_string($conn, $new_status);
 
             $sql_status = "UPDATE {$this->getTable()} SET status = '$new_status' WHERE id = $id";
 
-            if (!mysqli_query($conn, $sql_status)) {
-                return false;
+            if (mysqli_query($conn, $sql_status)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
+
 
 
 

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
     $user->insert($data);
 
-    if ($user){
+    if ($user) {
         header('location:index.php');
 
     }

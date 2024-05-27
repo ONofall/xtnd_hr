@@ -10,8 +10,6 @@ trait DatabaseConnection
     public function connect()
     {
         $this->conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
-
-
     }
 
     public function getConnection()

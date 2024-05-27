@@ -1,16 +1,17 @@
 <?php
 require_once '../autoloader.php';
 
-$updateStatus = new Vacation();
+
+$vacation = new Vacation();
 
 if (isset($_POST['update'])) {
-    $update = [
-        'update_id' => $_POST['update_id'],
-        'update' => $_POST['update']
+    $updates = [
+        $_POST['update_id'] => ($_POST['update'] == 'Accept') ? 'Accept' : 'Reject'
     ];
-    $updates = [$update];
-    $result = $updateStatus->updateStatus($updates);
+
+    $result = $vacation->updateStatus($updates);
     if ($result) {
         header('Location: index.php');
     }
 }
+
