@@ -10,8 +10,6 @@ if (isset($_POST['update'])) {
     ];
 
     $result = $vacation->updateStatus($updates);
-    if ($result) {
-        header('Location: index.php');
-    }
+
 }
 
